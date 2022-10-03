@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,20 +12,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
 <body>
-    div class="container">
-        <div class="col-md-10 offset-md-1 mt-5">
-            <div class="jumbotron">
-                <h1 class="display-4">Customer Register</h1>
-                <p class="lead fst-italic">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr class="my-4">
-                <!-- {% block content %}
-                
-                {% endblock content %} -->
-              </div>
+    
+    <div class="container-fluid mt-5" style="max-width: 95%;">
+        <div class="row mt-5">
+        <div class="row col-sm-2 mt-5 pt-5" >
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action" href="/unit/">Add Unit</a>
+                <a class="list-group-item list-group-item-action" href="/"> Add Customer</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo"> Add Customer PO</a>
+            </div>      
         </div>
+        <div class="row col-sm-10 mt-5 pt-5" >
+        {% block content %}
+        
+        {% endblock content %}
+        </div>
+    </div>
     </div>
 
 
+<script src="{% static 'javascript/main.js' %}"></script>
 
 </body>
 </html>
