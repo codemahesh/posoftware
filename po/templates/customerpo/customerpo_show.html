@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+ <div class="row">
+   <div class='col-sm-12 '>
+      <h4 class="text-center alert alert-info">Show Customer Po Details</h4>
+      
+      <div class="d-flex justify-content-end">
+        <a href="{% url 'addcustomerpo' %}" class = 'btn btn-success btn-lg mt-2'>Add New Customer Po</a>
+      </div>
+      {% if customerpo %}
+   <table class="table table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">Customer Po No.</th>
+      <th scope="col">Po Date</th>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Customer Code</th>
+      <th scope="col">Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for customerpo in customerpo%}
+    <tr>
+      <th scope="row">{{customerpo.customer_po_number}}</th>
+      <td>{{customerpo.date}}</td>
+      <td>{{customerpo.customer_name}}</td>
+      <td>{{customerpo.customer_code}}</td>
+      <td>{{customerpo.address}}</td>
+      <td>{{customerpo.place}}</td>
+      <td>
+        <a href="{% url 'updatecustomerpo' customerpo.id %}" class = 'btn btn-warning btn-sm'>Edit</a>
+        <form  action = "{% url 'deletecustomerpo' customerpo.id %}"class="d-inline" method="POST">
+          {% csrf_token %}
+          <input type ='submit' class="btn btn-danger btn-sm" value="Delete">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+      {% else %}   
+        <h4 class="text-center alert alert-warning mt-4">No PO Found</h4>
+      {% endif %}
+   </div>
+ </div>
+</div>
+{% endblock content %}

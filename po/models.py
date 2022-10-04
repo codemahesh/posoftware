@@ -11,7 +11,7 @@ class Customer(models.Model):
     customer_name = models.CharField(max_length = 255, unique=True)
     customer_code = models.CharField(max_length = 255)
     category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
-    address = models.CharField(max_length = 255)
+    address = models.TextField()
     place = models.CharField(max_length=50, null=True)
     
     def __str__(self) -> str:
@@ -54,10 +54,20 @@ class CustomerPo(models.Model):
         ('PR','PARTIAL RECEIVED'),
         ('MI','MISC')
     )
+    CATEGORY_CHOICES = (
+        ('A','A'),
+        ('B','B'),
+        ('C','C'),
+        ('D','D'),
+    )
     customer_po_number = models.CharField(max_length = 255, unique=True)
     date = models.DateField(verbose_name='P.O. Date (yyyy-mm-dd)')
     customer_name = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES, blank=True, null=True)
+    customer_code = models.CharField(max_length = 255)
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
+    address = models.TextField()
+    place = models.CharField(max_length=50, null=True)
+
 
     def __str__(self) -> str:
         return self.customer_po_number

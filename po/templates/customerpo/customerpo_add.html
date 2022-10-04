@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row ">
+            <div class="row col-sm-12 justify-content-start">
+                <h4 class="text-center alert alert-info">Add Customer Po Details</h4>
+                <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_customer_po_number" class="form-label">Customer Po No.</label>
+                    {{form.customer_po_number}}
+                </div>
+                <div class="col-md-4  form-group mt-2">
+                    <label for="id_customer_po_number" class="form-label">Po Date</label>
+                    {{form.date}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_date" class="form-label">Customer code</label>
+                    {{form.customer_code}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_date" class="form-label">Customer_Name</label>
+                    {{form.customer_name}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="inputCustName" class="form-label">Category</label>
+                    {{form.category}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="inputCustName" class="form-label">Place</label>
+                    {{form.place}}
+                </div>
+                <div class="col-md-6 form-group mt-2">
+                    <label for="inputCustName" class="form-label">Address</label>
+                    {{form.address}}
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                <input type="submit" class="btn btn-lg btn-success" value = 'Add'>
+                </div>
+                {{form.errors}}
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
+</form>
+{% endblock content %}
+

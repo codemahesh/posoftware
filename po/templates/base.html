@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-{% load static %}
->>>>>>> master
 
 <!DOCTYPE html>
 {% load static %}
@@ -11,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Po Software</title>
-    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base_style.css'%}">
+    {% block stylesheet %}
+
+    {% endblock stylesheet %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
@@ -21,9 +20,10 @@
         <div class="row mt-5">
         <div class="row col-sm-2 mt-5 pt-5" >
             <div class="list-group">
-                <a class="list-group-item list-group-item-action" href="/unit/">Add Unit</a>
-                <a class="list-group-item list-group-item-action" href="/"> Add Customer</a>
-                <a class="list-group-item list-group-item-action" href="/customerpo"> Add Customer PO</a>
+                <a class="list-group-item list-group-item-action" href="/customer/"> Customer</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo/"> Customer Po</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo"> Supplier Po</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo"> Dispatch</a>
             </div>      
         </div>
         <div class="row col-sm-10 mt-5 pt-5" >
@@ -33,12 +33,10 @@
         </div>
     </div>
     </div>
-<<<<<<< HEAD
 
+{% block javascript %}
 
-<script src="{% static 'javascript/main.js' %}"></script>
+{% endblock javascript %}
 
-=======
->>>>>>> master
 </body>
 </html>
