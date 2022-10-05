@@ -54,17 +54,12 @@ class CustomerPo(models.Model):
         ('PR','PARTIAL RECEIVED'),
         ('MI','MISC')
     )
-    CATEGORY_CHOICES = (
-        ('A','A'),
-        ('B','B'),
-        ('C','C'),
-        ('D','D'),
-    )
+  
     customer_po_number = models.CharField(max_length = 255, unique=True)
     date = models.DateField(verbose_name='P.O. Date (yyyy-mm-dd)')
-    customer_name = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer_name = models.CharField(max_length = 255)
     customer_code = models.CharField(max_length = 255)
-    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=1)
     address = models.TextField()
     place = models.CharField(max_length=50, null=True)
 

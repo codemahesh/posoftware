@@ -24,13 +24,13 @@
   <tbody>
     {% for customer in customer%}
     <tr>
-      <th scope="row">{{customer.customer_name}}</th>
+      <th scope="row"><a href="{% url 'updatecustomer' customer.id %}" style="text-decoration: none;">{{customer.customer_name}}</a></th>
       <td>{{customer.customer_code}}</td>
       <td>{{customer.category}}</td>
       <td>{{customer.address}}</td>
       <td>{{customer.place}}</td>
       <td>
-        <a href="{% url 'updatecustomer' customer.id %}" class = 'btn btn-warning btn-sm'>Edit</a>
+        <a href="{% url 'updatecustomer' customer.id %}" class = 'btn btn-warning btn-sm'>Edit</a>  
         <form  action = "{% url 'deletecustomer' customer.id %}"class="d-inline" method="POST">
           {% csrf_token %}
           <input type ='submit' class="btn btn-danger btn-sm" value="Delete">

@@ -13,23 +13,23 @@
                 <form action="" method="POST" class="row g-3">
                 {% csrf_token %}
                 <div class="col-md-4 form-group mt-2">
-                    <label for="id_customer_po_number" class="form-label">Customer Name</label>
+                    <label for="id_customer_name" class="form-label">Customer Name</label>
                     {{form.customer_name}}
                 </div>
                 <div class="col-md-4  form-group mt-2">
-                    <label for="id_customer_po_number" class="form-label">Customer Code</label>
+                    <label for="id_customer_code" class="form-label">Customer Code</label>
                     {{form.customer_code}}
                 </div>
                 <div class="col-md-4 form-group mt-2">
-                    <label for="id_date" class="form-label">Category</label>
+                    <label for="id_category" class="form-label">Category</label>
                     {{form.category}}
                 </div>
                 <div class="col-md-4 form-group mt-2">
-                    <label for="id_date" class="form-label">Address</label>
+                    <label for="id_address" class="form-label">Address</label>
                     {{form.address}}
                 </div>
                 <div class="col-md-4 form-group mt-2">
-                    <label for="inputCustName" class="form-label">Place</label>
+                    <label for="id_place" class="form-label">Place</label>
                     {{form.place}}
                 </div>
                 <div class="d-flex justify-content-center mt-4">

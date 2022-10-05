@@ -19,12 +19,13 @@
       <th scope="col">Customer Name</th>
       <th scope="col">Customer Code</th>
       <th scope="col">Address</th>
+      <th scope="col">Place</th>
     </tr>
   </thead>
   <tbody>
     {% for customerpo in customerpo%}
     <tr>
-      <th scope="row">{{customerpo.customer_po_number}}</th>
+      <th scope="row"><a href="{% url 'updatecustomerpo' customerpo.id %}" style="text-decoration: none">{{customerpo.customer_po_number}}</a></th>
       <td>{{customerpo.date}}</td>
       <td>{{customerpo.customer_name}}</td>
       <td>{{customerpo.customer_code}}</td>

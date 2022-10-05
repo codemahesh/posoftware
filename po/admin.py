@@ -18,7 +18,7 @@ class UomAdmin(admin.ModelAdmin):
 
 @admin.register(models.CustomerPo)
 class CustomerPoAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['customer_name']  
+    # autocomplete_fields = ['customer_name']  
     # inlines = [CustomerPoItemInline]
     list_display = ['customer_po_number','customer_code','customer_name']
     # list_display = '__all__'

@@ -7,7 +7,7 @@ class CustomerForm(forms.ModelForm):
         model = Customer
         fields = '__all__'
         widgets = {
-            'customer_name': forms.TextInput(attrs={'class':'form-control'}),
+            'customer_name': forms.TextInput(attrs={'class':'form-control','autofocus':'True'}),
             'customer_code': forms.TextInput(attrs={'class':'form-control'}),
             'category': forms.Select(attrs={'class':'form-select'}),
             'address': forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 5}),
@@ -17,15 +17,16 @@ class CustomerForm(forms.ModelForm):
 
 
 class CustomerPoForm(forms.ModelForm):
+    
     class Meta:
         model = CustomerPo
         fields = '__all__'
         widgets = {
-            'customer_po_number': forms.TextInput(attrs={'class':'form-control'}),
-            'date': forms.DateInput(attrs={'class':'form-control','id':'datepicker','placeholder':'yyyy-mm-dd','autocomplete': 'off'}),
+            'customer_po_number': forms.TextInput(attrs={'class':'form-control','autofocus':'True'}),
+            'date': forms.DateInput(attrs={'class':'form-control','placeholder':'yyyy-mm-dd','autocomplete': 'off',}),
             'customer_name': forms.Select(attrs={'class':'form-select'}),
             'customer_code': forms.TextInput(attrs={'class':'form-control'}),
-            'category': forms.Select(attrs={'class':'form-select'}),
-            'address': forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 5}),
-            'place': forms.TextInput(attrs={'class':'form-control'}),
+            'category': forms.TextInput(attrs={'class':'form-control','readonly':'True'}),
+            'address': forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 5,'readonly':'True'}),
+            'place': forms.TextInput(attrs={'class':'form-control','readonly':'True'}),
         }
