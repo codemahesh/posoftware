@@ -48,7 +48,18 @@ def customerpo_add(request):
         form = CustomerPoForm(request.POST)
         print("form",form)
         if form.is_valid():
-            form.save()
+            customerid = Customer.objects.filter(id=request.POST['customer_name'][0])
+            
+            customer_name = customerid.values('customer_name')[0]['customer_name']
+            customer_po = form.cleaned_data['customer_po_number']
+            date = form.cleaned_data['date']
+            customer_code = form.cleaned_data['customer_code']
+            category = form.cleaned_data['category']
+            address = form.cleaned_data['address']
+            place = form.cleaned_data['place']
+            
+            reg =CustomerPo(customer_name=customer_name,customer_po_number=customer_po, date=date, customer_code =customer_code, category=category, address= address, place=place)
+            reg.save()
         return redirect('showcustomerpo')
     else:
         form = CustomerPoForm()
@@ -70,7 +81,23 @@ def get_customer_detail(request):
 
 
 def customerpo_update(request,id):
-    pass
+    customer_po = CustomerPo.objects.get(pk=id)
+    form = CustomerPoForm(request.POST or None, instance = customer_po)
+    if form.is_valid():
+        customerid = Customer.objects.filter(id=request.POST['customer_name'][0])
+        customer_po.customer_name = customerid.values('customer_name')[0]['customer_name']
+        customer_po.customer_po_number = form.cleaned_data['customer_po_number']
+        customer_po.date = form.cleaned_data['date']
+        customer_po.customer_code = form.cleaned_data['customer_code']
+        customer_po.category = form.cleaned_data['category']
+        customer_po.address = form.cleaned_data['address']
+        customer_po.place = form.cleaned_data['place']
+        customer_po.save()
+        return redirect('showcustomerpo') 
+    return render(request, 'customerpo/customerpo_update.html', {'form': form})
 
 def customerpo_delete(request,id):
-    pass
+    if request.method == 'POST':
+        customerpo = CustomerPo.objects.get(pk=id)
+        customerpo.delete()
+        return redirect('showcustomerpo')
