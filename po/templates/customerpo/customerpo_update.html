@@ -3,49 +3,115 @@
 
 
 {% block content %}
-<form action="" method="post" autocomplete="off" onload="getCustomerCode()">
+<form action="." method="POST" autocomplete="off">
     {% csrf_token %}
     <div class="container">
         <div class="row ">
             <div class="row col-sm-12 justify-content-start">
                 <h4 class="text-center alert alert-info">Update Customer Po Details</h4>
                 <form action="" method="POST" class="row g-3">
-                {% csrf_token %}
-                <div class="col-md-4 form-group mt-2">
-                    <label for="id_customer_po_number" class="form-label">Customer Po No.</label>
-                    {{form.customer_po_number}}
-                </div>
-                <div class="col-md-4  form-group mt-2">
-                    <label for="id_date" class="form-label">Po Date</label>
-                    {{form.date}}
-                </div>
-                <div class="col-md-4 form-group mt-2">
-                    <label for="id_customer_code" class="form-label">Customer code</label>
-                    {{form.customer_code}}
-                </div>
-                <div class="col-md-4 form-group mt-2">
-                    <label for="id_customer_name" class="form-label">Customer_Name</label>
-                    {{form.customer_name}}
-                </div>
-                <div class="col-md-4 form-group mt-2">
-                    <label for="id_category" class="form-label">Category</label>
-                    {{form.category}}
-                </div>
-                <div class="col-md-4 form-group mt-2">
-                    <label for="id_place" class="form-label">Place</label>
-                    {{form.place}}
-                </div>
-                <div class="col-md-6 form-group mt-2">
-                    <label for="id_address" class="form-label">Address</label>
-                    {{form.address}}
-                </div>
-                <div class="d-flex justify-content-center mt-4">
-                <input type="submit" class="btn btn-lg btn-success" value = 'Update'>
-                </div>
-                {{form.errors}}
+                    {% csrf_token %}
+                    <div class="col-md-4 form-group mt-2">
+                        <label for="id_customer_po_number" class="form-label">Customer Po No.</label>
+                        {{form.customer_po_number}}
+                    </div>
+                    <div class="col-md-4  form-group mt-2">
+                        <label for="id_date" class="form-label">Po Date</label>
+                        {{form.date}}
+                    </div>
+                    <div class="col-md-4 form-group mt-2">
+                        <label for="id_customer_code" class="form-label">Customer code</label>
+                        {{form.customer_code}}
+                    </div>
+                    <div class="col-md-4 form-group mt-2">
+                        <label for="id_customer" class="form-label">Customer Name</label>
+                        {{form.customer_id}}
+                    </div>
+                    <div class="col-md-4 form-group mt-2">
+                        <label for="id_category" class="form-label">Category</label>
+                        {{form.category}}
+                    </div>
+                    <div class="col-md-4 form-group mt-2">
+                        <label for="id_place" class="form-label">Place</label>
+                        {{form.place}}
+                    </div>
+                    <div class="col-md-6 form-group mt-2">
+                        <label for="id_address" class="form-label">Address</label>
+                        {{form.address}}
+                    </div>
+
+                    {% if formset %}
+                    <h3>Add Items</h3>
+                    {{formset.management_form}}
+                    <div id="item-form-list">
+                        {% for form in formset %}
+                        {% for hidden in form.hidden_fields%}
+                        {{hidden}}
+                        {% endfor %}
+                        <div class="row col-sm-12 justify-content-start item-form">
+                          
+                            <div class="col-md-2 form-group mt-4">
+                                <label for="id_customer_po_number" class="form-label">Customer PO Number</label>
+                                {{form.customer_po_number}}
+                            </div>
+                        
+                            <div class="col-md-2 form-group mt-4">
+                                <label for="id_customer_po_number" class="form-label">Item Code</label>
+                                {{form.customer_item_code}}
+                            </div>
+                            <div class="col-md-4  form-group mt-4">
+                                <label for="id_date" class="form-label">Item Description</label>
+                                {{form.customer_item_description}}
+                            </div>
+                            <div class="col-md-1  form-group mt-4">
+                                <label for="id_date" class="form-label">Quantity</label>
+                                {{form.quantity}}
+                            </div>
+                            <div class="col-md-1  form-group mt-4">
+                                <label for="id_date" class="form-label">Unit</label>
+                                {{form.unit}}
+                            </div>
+                        </div>
+                        {% endfor%}
+                    </div>
+
+                    <div style="display: none;">
+                        <div id="empty-form">
+                            <div style="display: none;" id="cust-name">{{formset.empty_form.customer_item_code}} </div>
+                            <div class="col-md-2 form-group mt-3">
+                                <label for="id_customer_code" class="form-label">Customer Po Num</label>
+                                {{formset.empty_form.customer_po_number}}
+                            </div>
+                            <div class="col-md-2 form-group mt-3">
+                                <label for="id_customer_code" class="form-label">Item Code</label>
+                                {{formset.empty_form.customer_item_code}}
+                            </div>
+                            <div class="col-md-4 form-group mt-4">
+                                <label for="id_item_description" class="form-label">Item Description</label>
+                                {{formset.empty_form.customer_item_description}}
+                            </div>
+                            <div class="col-md-1  form-group mt-4">
+                                <label for="id_quantity" class="form-label">Quantity</label>
+                                {{formset.empty_form.quantity}}
+                            </div>
+                            <div class="col-md-1  form-group mt-4">
+                                <label for="id_unit" class="form-label">Unit</label>
+                                {{formset.empty_form.unit}}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class=" btn btn-primary mt-4" id="add-more" type="button">Add more</button>
+                    </div>
+
+                    {% endif %}
+                    <div class="d-flex justify-content-center mt-4">
+                        <input type="submit" class="btn btn-lg btn-success" value='Update'>
+                    </div>
+                    {{form.errors}}
                 </form>
             </div>
-        
+
         </div>
     </div>
 
@@ -55,99 +121,325 @@
 
 {% block javascript %}
 <!-- <script src="{% static 'javascript/customerpo_add_javascript.js' %}"></script> -->
-<script>
+<!-- <script>
+    // Date Picker
+    $(function () {
 
-// Date Picker
-$( function() {
-
-    $( "#id_date" ).datepicker({
-        dateFormat: 'yy-mm-dd'
+        $("#id_date").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
     });
-  } );
-    
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
+    const csrftoken = getCookie('csrftoken');
 
 
-let customer_name = document.getElementById("id_customer_name");
-let customer_code = document.getElementById("id_customer_code");
-let category = document.getElementById("id_category");
-let place = document.getElementById('id_place');
-let address = document.getElementById('id_address');
+    let customer_name = document.getElementById("id_customer_name");
+    let customer_code = document.getElementById("id_customer_code");
+    let category = document.getElementById("id_category");
+    let place = document.getElementById('id_place');
+    let address = document.getElementById('id_address');
 
-customer_code.addEventListener('onload', getCustomerCode)
-customer_code.addEventListener('change', getCustomerCode)
-customer_name.addEventListener('change',getCustomerDetail)
+    customer_code.addEventListener('change', getCustomerCode)
+    customer_id.addEventListener('change', getCustomerDetail)
 
-function getCustomerCode(e){
-    let customer_code = e.target.value;
-    const data = {id: customer_code};
-    let url = "{% url 'customercode' %}";
+    function getCustomerCode(e) {
+        console.log('getCustomercode activated');
+        let customer_code = document.getElementById('id_customer_code').value;
+        const data = {
+            id: customer_code
+        };
+        let url = "{% url 'customercode' %}";
 
-    fetch(url, {
-        method:'POST',
-        headers:{
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-        },
-        body: JSON.stringify(data),
-    }).then((response)=>response.json())
-    .then((data) => {
-        console.log('Success:', data);
-        customer_name.innerHTML = '<option value="" selected="">------</option>'
-        for(let i =0; i<data.length; i++)
-        { 
-            customer_name.innerHTML += `<option value=${data[i]["id"]} selected ="">${data[i]["customer_name"]}</option>`
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                customer_id.innerHTML = '<option value="" selected="">------</option>'
+                for (let i = 0; i < data.length; i++) {
+                    customer_name.innerHTML +=
+                        `<option value=${data[i]["id"]} selected ="">${data[i]["customer_name"]}</option>`
+                }
+
+                place.value = data[data.length - 1]['place']
+                address.value = data[data.length - 1]['address']
+                category.value = data[data.length - 1]['category']
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function getCustomerDetail(e) {
+        console.log("event is",e.type);
+        let customer_id = '';
+        if(e.type == 'load'){
+            customer_id = "{{form.customer_id}}"
+            console.log("IN side load ","{{form.customer_id}}");
         }
-        
-        place.value = data[data.length-1]['place']
-        address.value = data[data.length-1]['address']
-        category.value = data[data.length-1]['category']
+        else if (e.type == 'change'){
+            console.log("I love u");
+            customer_id = document.getElementById('id_customer_id').value
+        }
+        console.log('selected value:',customer_id);
+        const data = {
+            id: customer_id
+        };
+        let url = "{% url 'getcustomerdetail' %}";
+
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success id:', data);
+                place.value = data[0]['place']
+                address.value = data[0]['address']
+                category.value = data[0]['category']
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+    //ONlOAD
+    window.addEventListener('load',(event)=>{
+        console.log('Hello this load');
+        getCustomerCode(event)
+        getCustomerDetail(event)
+
     })
-    .catch((error) => {
-        console.error('Error:', error);
-      });
-}
 
-function getCustomerDetail(e){
-    let customer_id = e.target.value;
-    const data = {id: customer_id};
-    let url = "{% url 'getcustomerdetail' %}";
+    //  ADD more items details
+    const addMoreBtn = document.getElementById('add-more')
+    const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
+    
+    addMoreBtn.addEventListener('click', (event) => {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentItemforms = document.getElementsByClassName('item-form')
+        const currentFormCount  = currentItemforms.length
+        const formCopyTarget = document.getElementById("item-form-list")
+        const copyemptyFormEl = document.getElementById('empty-form').cloneNode(true)
+        copyemptyFormEl.setAttribute('class', 'item-form row col-sm-12 justify-content-start')
 
-    fetch(url, {
-        method:'POST',
-        headers:{
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-        },
-        body: JSON.stringify(data),
-    }).then((response)=>response.json())
-    .then((data) => {
-        console.log('Success id:', data);
-        place.value = data[0]['place']
-        address.value = data[0]['address']
-        category.value = data[0]['category']
-        
+        copyemptyFormEl.setAttribute('id',`form-${currentFormCount}`)
+        const regex =new RegExp('__prefix__','g')
+        copyemptyFormEl.innerHTML = copyemptyFormEl.innerHTML.replace(regex,currentFormCount)
+        totalNewForms.setAttribute('value',currentFormCount+1)
+        //add new empty for to our html form
+        formCopyTarget.append(copyemptyFormEl)
+        // put value of cutomerpo no in added form
+        poNo = document.getElementById('id_customer_po_number')
+        document.getElementById(`id_form-${currentFormCount}-'customer_po_number'`).value =poNo
     })
-    .catch((error) => {
-        console.error('Error:', error);
-      });
-}
 
 
+</script> -->
+<script>
+    console.log("hello");
+    // function for date
+    $(function () {
+
+        $("#id_date").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+
+    let customer_id = document.getElementById("id_customer_id");
+    let customer_code = document.getElementById("id_customer_code");
+    let category = document.getElementById("id_category");
+    let place = document.getElementById('id_place');
+    let address = document.getElementById('id_address');
+
+    customer_code.addEventListener('change', getCustomerCode)
+    customer_id.addEventListener('change', getCustomerDetail)
+
+    function setOption(selectElement, value) {
+
+        var options = selectElement.getElementsByTagName('option');
+        console.log("optionlength",options.length);
+        for (var i = 0, optionsLength = options.length; i < optionsLength; i++) {
+            console.log(options[i].value);
+            if (options[i].value == value) {
+                selectElement.selectedIndex = i;
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
+    function getCustomerCode(e) {
+        event.preventDefault()
+        console.log("event is", e.type);
+        let customer_code = '';
+        if (e.type == 'DOMContentLoaded') {
+            customer_code = `{{form.customer_code.value}}`
+            document.getElementById("id_customer_id").value=`{{form.customer_id.value}}`
+            console.log("IN side load ", `{{form.customer_code.value}}`);
+            
+        } else if (e.type == 'change') {
+            console.log("I love u");
+            customer_code = e.target.value;
+        }
+
+        console.log('selected value:', customer_code);
+     
+        const data = {
+            id: customer_code
+        };
+
+        let url = "{% url 'customercode' %}";
+
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                customer_id.innerHTML = '<option value="" selected="">------</option>'
+                for (let i = 0; i < data.length; i++) {
+                    customer_id.innerHTML +=
+                        `<option value=${data[i]["id"]} selected="">${data[i]["customer_name"]}</option>`
+                }
+                document.getElementById("id_customer_id").value=`{{form.customer_id.value}}`
+                place.value = data[data.length - 1]['place']
+                address.value = data[data.length - 1]['address']
+                category.value = data[data.length - 1]['category']
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    function getCustomerDetail(e) {
+        event.preventDefault()
+        console.log("event is", e.type);
+        let customer_id = '';
+        if (e.type == 'DOMContentLoaded') {
+            // $('#id_customer_id').val(`{{form.customer_id.value}}`);
+            customer_id = `{{form.customer_id.value}}`
+            console.log("IN side load ", `{{form.customer_id.value}}`);
+        } 
+        else if (e.type == 'change') {
+            console.log("I love u");
+            customer_id = e.target.value;      
+        }
+        console.log('selected value:', customer_id);
+        // let customer_id = e.target.value;
+        const data = {
+            id: customer_id
+        };
+        let url = "{% url 'getcustomerdetail' %}";
+
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success id:', data);
+                place.value = data[0]['place']
+                address.value = data[0]['address']
+                category.value = data[0]['category']
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    //ONlOAD
+    window.addEventListener("DOMContentLoaded", (event) => {
+        console.log('Hello this load', `{{form.customer_id.value}}`);
+        getCustomerCode(event)
+        setOption(document.getElementById("id_customer_id"), `{{form.customer_id.value}}`)
+        getCustomerDetail(event)
+       
+    })
+
+    //  ADD more items details
+    const addMoreBtn = document.getElementById('add-more')
+    const totalNewForms = document.getElementById('id_form-TOTAL_FORMS')
+
+    addMoreBtn.addEventListener('click', (event) => {
+        if (event) {
+            event.preventDefault()
+        }
+        const currentItemForms = document.getElementsByClassName('item-form')
+        const currentFormCount = currentItemForms.length
+        const formCopyTarget = document.getElementById("item-form-list")
+        const copyemptyFormEl = document.getElementById('empty-form').cloneNode(true)
+        copyemptyFormEl.setAttribute('class', 'item-form row col-sm-12 justify-content-start')
+
+        copyemptyFormEl.setAttribute('id', `form-${currentFormCount}`)
+        const regex = new RegExp('__prefix__', 'g')
+        copyemptyFormEl.innerHTML = copyemptyFormEl.innerHTML.replace(regex, currentFormCount)
+        totalNewForms.setAttribute('value', currentFormCount + 1)
+        //add new empty for to our html form
+        formCopyTarget.append(copyemptyFormEl)
+        // put value of cutomerpo no in added form
+        let poNO = '';
+        poNo = document.getElementById('id_customer_po_number').value ;
+        console.log("poNO",poNO);
+        document.getElementById(`id_form-${currentFormCount}-customer_po_number`).value = poNo
+    })
+
+    // $('#id_customer_id').on('load',function(e){
+    //     console.log("Welcome to jquwery");
+    // })
 </script>
 {% endblock javascript %}

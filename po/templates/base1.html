@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Po Software</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base_style.css'%}">
+    <link href=https://code.jquery.com/ui/1.13.2/themes/cupertino/jquery-ui.css rel="stylesheet" type="text/css"></link>   
+    {% block stylesheet %}
+    
+    {% endblock stylesheet %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<body>
+    
+    <div class="container-fluid mt-5" style="max-width: 95%;">
+        <div class="row mt-5">
+        <div class="row col-sm-2 mt-5 pt-5" >
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action" href="/customer/"> Customer</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo/"> Customer Po</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo"> Supplier Po</a>
+                <a class="list-group-item list-group-item-action" href="/customerpo"> Dispatch</a>
+            </div>      
+        </div>
+        <div class="row col-sm-10 mt-5 pt-5" >
+        {% block content %}
+        
+        {% endblock content %}
+        </div>
+    </div>
+    </div>
+    <script
+			  src="https://code.jquery.com/jquery-3.6.1.min.js"
+			  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+			  crossorigin="anonymous"></script>
+              <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+
+                
+    <script
+    
+    src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+    integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY="
+    crossorigin="anonymous"></script>
+
+{% block javascript %}
+
+{% endblock javascript %}
+
+</body>
+</html>

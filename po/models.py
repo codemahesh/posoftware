@@ -54,28 +54,30 @@ class CustomerPo(models.Model):
         ('PR','PARTIAL RECEIVED'),
         ('MI','MISC')
     )
-  
+    customer_id = models.CharField(max_length=100)
     customer_po_number = models.CharField(max_length = 255, unique=True)
     date = models.DateField(verbose_name='P.O. Date (yyyy-mm-dd)')
-    customer_name = models.CharField(max_length = 255)
+    customer_name = models.CharField(max_length = 255, null=True,blank=True)
     customer_code = models.CharField(max_length = 255)
     category = models.CharField(max_length=1)
     address = models.TextField()
-    place = models.CharField(max_length=50, null=True)
-
+    place = models.CharField(max_length=50)
 
     def __str__(self) -> str:
         return self.customer_po_number
+    
+    def get_po_item(self):
+        return self.customerpoitem_set.all()
     class Meta:
         ordering =['customer_po_number']
 
 
 class CustomerPoItem(models.Model):
-    customer_po_number = models.ForeignKey(CustomerPo, on_delete=models.PROTECT)
+    customer_po_number = models.ForeignKey(CustomerPo, on_delete=models.CASCADE)
     customer_item_code = models.CharField(max_length=255)
     customer_item_description = models.TextField()
     quantity = models.PositiveIntegerField()
-    unit = models.ForeignKey(Uom, on_delete=models.PROTECT)
+    unit = models.CharField(max_length=100)
     
     def __str__(self) -> str:
         return self.customer_item_code

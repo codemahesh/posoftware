@@ -24,8 +24,13 @@ class CustomerPoAdmin(admin.ModelAdmin):
     # list_display = '__all__'
     # list_editable = ['status']
     list_per_page = 10
-    list_select_related = ['customer_name']
+    # list_select_related = ['customer_name']
     search_fields = ['customer_po_number__istartswith','status__istartswith']
 
     def customer_address(self,customerpo):
         return customerpo.customer_name.address
+    
+@admin.register(models.CustomerPoItem)
+class CustomerPoItemAdmin(admin.ModelAdmin):
+    list_display = ('customer_po_number','customer_item_code','customer_item_description','quantity','unit')
+   

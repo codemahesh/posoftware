@@ -24,8 +24,8 @@
                     {{form.customer_code}}
                 </div>
                 <div class="col-md-4 form-group mt-2">
-                    <label for="id_customer_name" class="form-label">Customer_Name</label>
-                    {{form.customer_name}}
+                    <label for="id_customer_name" class="form-label">Customer Name</label>
+                    {{form.customer_id}}
                 </div>
                 <div class="col-md-4 form-group mt-2">
                     <label for="id_category" class="form-label">Category</label>
@@ -39,8 +39,11 @@
                     <label for="id_address" class="form-label">Address</label>
                     {{form.address}}
                 </div>
+                <!-- Add item details -->     
+                 
+                {{item}}
 
-                <div class="h3 mt-5 text-center alert ">Add Items</div>
+
                 <div class="d-flex justify-content-center mt-4">
                 <input type="submit" class="btn btn-lg btn-success" value = 'Add'>
                 </div>
@@ -85,14 +88,14 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 
-let customer_name = document.getElementById("id_customer_name");
+let customer_id = document.getElementById("id_customer_id");
 let customer_code = document.getElementById("id_customer_code");
 let category = document.getElementById("id_category");
 let place = document.getElementById('id_place');
 let address = document.getElementById('id_address');
 
 customer_code.addEventListener('change', getCustomerCode)
-customer_name.addEventListener('change',getCustomerDetail)
+customer_id.addEventListener('change',getCustomerDetail)
 
 function getCustomerCode(e){
     let customer_code = e.target.value;
@@ -109,10 +112,10 @@ function getCustomerCode(e){
     }).then((response)=>response.json())
     .then((data) => {
         console.log('Success:', data);
-        customer_name.innerHTML = '<option value="" selected="">------</option>'
-        for(let i =0; i<data.length; i++)
+        customer_id.innerHTML = '<option value="" selected="">------</option>'
+        for(let i = 0; i<data.length; i++)
         { 
-            customer_name.innerHTML += `<option value=${data[i]["id"]} selected ="">${data[i]["customer_name"]}</option>`
+            customer_id.innerHTML += `<option value=${data[i]["id"]} selected ="">${data[i]["customer_name"]}</option>`
         }
         
         place.value = data[data.length-1]['place']
