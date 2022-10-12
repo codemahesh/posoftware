@@ -2,7 +2,7 @@
 {% extends 'base.html'%}
 {% load static %}
 
-
+{% block pagename %}Update Customer{% endblock pagename %}
 {% block content %}
 <form action="" method="post" autocomplete="off">
     {% csrf_token %}

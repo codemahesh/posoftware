@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block pagename %}Add Customer PO Items{% endblock pagename %}
 
 {% block content %}
 <form action="." method="POST" autocomplete="off">
@@ -48,7 +48,7 @@
                         {% for hidden in form.hidden_fields%}
                         {{hidden}}
                         {% endfor %}
-                        <div class="row col-sm-12 justify-content-start item-form">
+                        <div class="row col-sm-12 justify-content-start item-form" >
                           
                             <div class="col-md-2 form-group mt-4">
                                 <label for="id_customer_po_number" class="form-label">Customer PO Number</label>
@@ -98,15 +98,20 @@
                                 <label for="id_unit" class="form-label">Unit</label>
                                 {{formset.empty_form.unit}}
                             </div>
+                            <div class="col-md-1  form-group mt-4">
+                                <button class = 'btn btn-danger' id="DeleteRow" type="button">
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <button class=" btn btn-primary mt-4" id="add-more" type="button">Add more</button>
+                        <button class=" btn btn-primary mt-4" id="add-more" type="button">Create more Form</button>
                     </div>
 
                     {% endif %}
-                    <div class="d-flex justify-content-center mt-4">
-                        <input type="submit" class="btn btn-lg btn-success" value='Update'>
+                    <div class="d-flex justify-content-center mt-4 mb-5">
+                        <input type="submit" class="btn btn-lg btn-success" value='Add'>
                     </div>
                     {{form.errors}}
                 </form>
@@ -437,6 +442,23 @@
         console.log("poNO",poNO);
         document.getElementById(`id_form-${currentFormCount}-customer_po_number`).value = poNo
     })
+
+    // $('body').on('click','#DeleteRow', function(){
+    //     const
+    //     console.log("inside delete");
+    //     $(this).parents('.row').remove();
+    // })
+
+    $('body').on('click','#DeleteRow', function(){
+       
+    // var id1 = $(this).parent().parent().attr('id');
+    // alert(id1);
+    //     console.log("inside delete",id1);
+        // $(this).parents('.row').remove();
+        $(this).parent().parent().remove();
+    // alert(id1);
+    })
+
 
     // $('#id_customer_id').on('load',function(e){
     //     console.log("Welcome to jquwery");

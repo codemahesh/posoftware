@@ -62,7 +62,7 @@ class CustomerPoItemForm(forms.ModelForm):
              'customer_item_code': forms.TextInput(attrs={'class':'form-control'}),
              'customer_item_description':forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 5,}),
              'quantity':forms.NumberInput(attrs={'class':'form-control'}),
-             'unit':forms.TextInput(attrs={'class':'form-control'})     
+             'unit': forms.Select(attrs={'class':'form-select'}),     
              
         }
     def __init__(self, *args, **kwargs):

@@ -14,7 +14,7 @@ def  login_view(request):
             return render(request,'accounts/login.html',context)
          print(user)
          login(request, user)
-         return redirect('showcustomerpo')
+         return redirect('showdashboard')
              
     return render(request,'accounts/login.html',{})
  

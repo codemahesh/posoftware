@@ -11,7 +11,7 @@ from django.forms.models import modelformset_factory
 
 
 def dashboard_show(request):
-    return render(request,"customer/dashboard.html")
+    return render(request,"dashboard.html")
 
 #------------------------Customer details-------------------------------
 @login_required
@@ -162,3 +162,12 @@ def customerpo_delete(request,id):
         customerpo = CustomerPo.objects.get(pk=id)
         customerpo.delete()
         return redirect('showcustomerpo')
+    
+    
+@login_required
+def customerpoitem_delete(request,id):
+    if request.method == 'POST':
+        customerpoitem = CustomerPoItem.objects.get(pk=id)
+        customerpoitem.delete()
+        return redirect('showcustomerpo')
+    
