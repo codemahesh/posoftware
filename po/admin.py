@@ -33,4 +33,8 @@ class CustomerPoAdmin(admin.ModelAdmin):
 @admin.register(models.CustomerPoItem)
 class CustomerPoItemAdmin(admin.ModelAdmin):
     list_display = ('customer_po_number','customer_item_code','customer_item_description','quantity','unit')
+    
+@admin.register(models.VendorPo)
+class VendorPOItemAdmin(admin.ModelAdmin):
+    list_display = ('customer_po_number', 'our_po_number', 'vendor_name', 'po_date', 'acknowledgement_date')
    

@@ -1,7 +1,7 @@
 from tkinter import Widget
 from unicodedata import name
 from django import forms
-from .models import Customer, CustomerPo, CustomerPoItem, Uom 
+from .models import Customer, CustomerPo, CustomerPoItem, Dispatch, Uom, VendorPo 
 
 class CustomerForm(forms.ModelForm):
     class Meta:
@@ -58,9 +58,10 @@ class CustomerPoItemForm(forms.ModelForm):
         model = CustomerPoItem
         fields = '__all__'
         widgets = {
-             'customer_po_number':forms.Select(attrs={'class':'form-select'}),
+            'customer_po_id':forms.Select(attrs={'class':'form-select'}),
+            #  'customer_po_number':forms.Select(attrs={'class':'form-select'}),
              'customer_item_code': forms.TextInput(attrs={'class':'form-control'}),
-             'customer_item_description':forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 5,}),
+             'customer_item_description':forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 3,}),
              'quantity':forms.NumberInput(attrs={'class':'form-control'}),
              'unit': forms.Select(attrs={'class':'form-select'}),     
              
@@ -68,4 +69,41 @@ class CustomerPoItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CustomerPoItemForm, self).__init__(*args, **kwargs)
         # exclude= ['customer_po_number']
-        
+
+class DispatchForm(forms.ModelForm):
+    class Meta:
+        model = Dispatch
+        fields = '__all__'
+        widgets = {
+            "customer_po_number":forms.TextInput(attrs={'class':'form-control','autofocus':'True'}),
+            'date': forms.DateInput(attrs={'class':'form-control','autocomplete': 'off',}),
+            'invoice_number': forms.TextInput(attrs={'class':'form-control'}),
+            "dispatch_mail_status":  forms.Select(attrs={'class':'form-select'}),
+            'docket': forms.TextInput(attrs={'class':'form-control'}),
+            'parcel': forms.Select(attrs={'class':'form-select'}),
+            'dimension': forms.TextInput(attrs={'class':'form-control'}),
+            "charged_weight":forms.NumberInput(attrs={'class':'form-control'}),
+            'weight':forms.NumberInput(attrs={'class':'form-control'}),
+            'unit': forms.Select(attrs={'class':'form-select'}),
+            'sender': forms.Select(attrs={'class':'form-select'}),
+            'curior_company': forms.Select(attrs={'class':'form-select'}),
+            'delivery_status': forms.Select(attrs={'class':'form-select'}),
+            'delivery_date' : forms.DateInput(attrs={'class':'form-control','autocomplete': 'off',}),
+            "invoice_status" :forms.Select(attrs={'class':'form-select'}),
+            'insurance' :forms.Select(attrs={'class':'form-select'}),
+            'remark':  forms.TextInput(attrs={'class':'form-control'}),
+            'asn_number': forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+class VendorPoForm(forms.ModelForm):
+    
+    class Meta:
+        model = VendorPo
+        fields = ['customer_po_number','our_po_number','vendor_name','po_date']
+        # exclude =('acknowledgement_date')
+        widgets = {
+           'customer_po_number':forms.TextInput(attrs={'class':'form-control'}),
+           'our_po_number': forms.TextInput(attrs={'class':'form-control','autofocus':'True'}),
+           'vendor_name': forms.TextInput(attrs={'class':'form-control'}),
+           'po_date': forms.DateInput(attrs={'class':'form-control','autocomplete': 'off',}),
+        }

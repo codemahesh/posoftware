@@ -4,7 +4,10 @@ from . import views
 
 
 urlpatterns = [
-     #---------------------Dashboard----------------------------------
+     
+    #---------------------Search-----------------------------------
+     
+    #---------------------Dashboard----------------------------------
     path('',views.dashboard_show, name='showdashboard'),
     #--------------------- Customer  Urls------------------------------
     path('customer/',views.customer_show, name='showcustomer'),
@@ -14,6 +17,7 @@ urlpatterns = [
 
 
     #---------------------Customer PO urls------------------------------
+    path('customerpo_search/', views.customerpo_search, name='customerposearch'),
     path('customerpo/', views.customerpo_show, name='showcustomerpo'),
     path('customerpo/add/',views.customerpo_add,
          name='addcustomerpo'),
@@ -25,4 +29,9 @@ urlpatterns = [
     path('customerpo/delete/<int:id>/',views.customerpo_delete, name='deletecustomerpo'),
     
     path('customerpoitem/delete/<int:id>/',views.customerpoitem_delete, name='deletecustomeritempo'),
+    
+     #------------------------------Vendor Urls-----------------------------
+     path('addvendordetail/', views.add_vendor_deatil, name='addvendordetail'),
+     #-------------------------------Dispatch--------------------------------
+     path('dispatch/',views.add_dispatch, name ='adddispatch')
 ]

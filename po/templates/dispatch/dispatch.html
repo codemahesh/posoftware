@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagename %}Dispatch {% endblock pagename %}
+
+{% block content %}
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row ">
+            <div class="row col-sm-12 justify-content-start">
+                <h4 class="text-center alert alert-info">Dispatch Page</h4>
+                <form action="" method="POST" class="row g-3">
+                {% csrf_token %}
+
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_customer_name" class="form-label">Customer Po Number</label>
+                    {{form.customer_po_number}}
+                </div>
+                <div class="col-md-4  form-group mt-2">
+                    <label for="id_customer_code" class="form-label">Invoice Date</label>
+                    {{form.date}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_category" class="form-label">Invoice Number</label>
+                    {{form.invoice_number}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_address" class="form-label">Mail Staus</label>
+                    {{form.dispatch_mail_status}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Docket</label>
+                    {{form.docket}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Dimension</label>
+                    {{form.dimension}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Charged Weight</label>
+                    {{form.charged_weight}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Charged Weight</label>
+                    {{form.weight}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Unit</label>
+                    {{form.unit}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Parcel/Document</label>
+                    {{form.parcel}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Curior Company</label>
+                    {{form.curior_company}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Sender</label>
+                    {{form.sender}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Delivery Status</label>
+                    {{form.delivery_status}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Delivery Date</label>
+                    {{form.delivery_date}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Invoice Status</label>
+                    {{form.invoice_status}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Insurance</label>
+                    {{form.insurance}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">Remark</label>
+                    {{form.remark}}
+                </div>
+                <div class="col-md-4 form-group mt-2">
+                    <label for="id_place" class="form-label">ASN Number</label>
+                    {{form.asn_number}}
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                <input type="submit" class="btn btn-lg btn-success" value = 'Submit'>
+                </div>
+                {{form.errors}}
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
+</form>
+{% endblock content %}

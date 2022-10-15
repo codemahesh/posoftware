@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block search_url_name %}
+
+"{%url 'customerposearch' %}"
+
+{% endblock search_url_name %}
+{% block pagename %}Vendor PO{% endblock pagename %}
+
+{% block content %}
+
+{% if customerpo %}
+<h1> {{customerpo.customer_po_number}}</h1>
+{% for po in customerpo %}
+<div class="container">
+    <div class="row ">
+        <h2 class="mt-4">Customer Details</h2>
+      
+        <div class="row col-sm-12 justify-content-start mt-2 mb-3">
+
+            <div class="col-md-4 form-group mb-3 ">
+                <label for="id_customer_po_number" class="form-label">Customer Po No.</label>
+                <input class="form-control" type="text" value="{{po.customer_po_number}}" readonly>
+
+            </div>
+            <div class="col-md-4  form-group mb-3">
+                <label for="id_date" class="form-label">Po Date</label>
+                <input class="form-control" type="text" value="{{po.date}}" readonly>
+            </div>
+            <div class="col-md-4 form-group mt-2">
+                <label for="id_customer_code" class="form-label">Customer code</label>
+                <input class="form-control" type="text" value="{{po.customer_code}}" readonly>
+            </div>
+            <div class="col-md-4 form-group mt-2">
+                <label for="id_customer_name" class="form-label">Customer Name</label>
+                <input class="form-control" type="text" value="{{po.customer_name}}" readonly>
+            </div>
+            <div class="col-md-4 form-group mt-2">
+                <label for="id_category" class="form-label">Category</label>
+                <input class="form-control" type="text" value="{{po.category}}" readonly>
+            </div>
+            <div class="col-md-4 form-group mt-2">
+                <label for="id_place" class="form-label">Place</label>
+                <input class="form-control" type="text" value="{{po.place}}" readonly>
+            </div>
+            <div class="col-md-5 form-group mt-4">
+                <label for="id_address" class="form-label">Address</label>
+                <textarea class="form-control" type="text" readonly rows="3" cols="4">{{po.address}}</textarea>
+            </div>
+        </div>
+        
+
+        <h2 class="mt-4">Our Details </h2>
+        <form action="{% url 'addvendordetail' %}" method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row ">
+                    <div>
+                        <div class="row col-sm-12 justify-content-start">
+                            <div class="col-md-4 form-group mt-2 " style="display:none">
+                                <label for="id_customer_po_number" class="form-label">Customer Po No.</label>
+                                <input class="form-control" type="text" value="{{po.customer_po_number}}"
+                                    name="customer_po_number" readonly required>
+                            </div>
+                            <div class="col-md-4  form-group mt-2">
+                                <label for="id_date" class="form-label">Our Po Number</label>
+                                {{vendorpo.our_po_number}}
+                            </div>
+                            <div class="col-md-4 form-group mt-2">
+                                <label for="id_customer_code" class="form-label">Vendor Name</label>
+                                {{vendorpo.vendor_name}}
+                            </div>
+                            <div class="col-md-4 form-group mt-2">
+                                <label for="id_customer_name" class="form-label">Our PO Date</label>
+                                {{vendorpo.po_date}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add item details -->
+                    <table class="table mt-5 table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">S.No.</th>
+                                <th scope="col-xs-4">Check box</th>
+                                <th scope="col">Cust. Item Code</th>
+                                <th scope="col">Cust. Item Description</th>
+                                <th scope="col">Max. Qty.</th>
+                                <th scope='col'>UOM</th>
+                                <th scope="col">Our Item Code</th>
+                                <th scope="col">Our Item Description</th>
+                                <th scope="col">Qty.</th>
+                                <th scope="col">Our Po Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in customerpoitem %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="checkitem" name="itemselect"
+                                            value={{item.customer_po_number}}></div>
+                                </td>
+                                <td>{{item.customer_po_number}}</td>
+                                <td>{{item.customer_item_description}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.unit}}</td>
+                                <td><input class="form-control" type="text"></td>
+                                <td><textarea class="form-control" type="text" rows="2"
+                                        cols="5">{{po.address}}</textarea></td>
+                                <td><input class="form-control" type="text"></td>
+                                <td><input class="form-control" type="text"></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+
+                    <div class="d-flex justify-content-center mt-4">
+                        <input type="submit" class="btn btn-lg btn-success" value='Add'>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock content %}

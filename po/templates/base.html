@@ -58,7 +58,11 @@
       data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <form class=" w-100" action={% block search_url_name %} {% endblock search_url_name %} method="POST">
+      {% csrf_token %}
+      <input class="form-control form-control-dark w-100 me-2 rounded" type="text" placeholder="Search Customer PO Number" aria-label="Search" name="searched">
+      
+    </form>
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
         <a class="nav-link px-3" href="{% url 'logout' %}">Sign out</a>
@@ -66,7 +70,7 @@
     </div>
   </header>
 
-  <div class="container-fluid">
+  <div class="container-fluid mt-4">
     <div class="row">
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
@@ -97,7 +101,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{% url 'adddispatch' %}">
                 <span data-feather="bar-chart-2"></span>
                 Dispatch
               </a>
@@ -144,6 +148,9 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">{% block pagename %} {% endblock pagename %}</h1>
+          <div>
+            <h4>Hi, {{request.user}}</h4>
+          </div>
           <!-- <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -155,22 +162,25 @@
           </button>
         </div> -->
         </div>
-        {% block content %} {% endblock content %} </main> </div> </div> <script
-          src="{% static '/javascript/bootstrap.bundle.min.js' %}">
-          </script>
-          <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-            integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
-          </script>
-          <script src="{% static '/javascript/dashboard.js'%}"></script>
-          <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-          <script src="https://unpkg.com/htmx.org@1.8.0"></script>
-          <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
-            integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+        {% block content %} {% endblock content %}
+      </main>
+    </div>
+  </div>
+  <script src="{% static '/javascript/bootstrap.bundle.min.js' %}">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous">
+  </script>
+  <script src="{% static '/javascript/dashboard.js'%}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+    integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 
-          {% block javascript %}
+  {% block javascript %}
 
-          {% endblock javascript %}
+  {% endblock javascript %}
 
 </body>
 

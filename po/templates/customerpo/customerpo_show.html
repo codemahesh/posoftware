@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block search_url_name %}
+
+"{%url 'customerposearch' %}"
+
+{% endblock search_url_name %}
 {% block pagename %}Customer PO{% endblock pagename %}
 {% block content %}
 <div class="container">

@@ -1,3 +1,5 @@
+from cgi import print_environ
+from cmath import log
 import json
 from logging.config import IDENTIFIER
 from wsgiref.handlers import format_date_time
@@ -5,11 +7,31 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
-from po.forms import CustomerForm, CustomerPoForm, CustomerPoItemForm
-from po.models import Customer, CustomerPo, CustomerPoItem
+from po.forms import CustomerForm, CustomerPoForm, CustomerPoItemForm, DispatchForm, VendorPoForm
+from po.models import Customer, CustomerPo, CustomerPoItem, VendorPo
 from django.forms.models import modelformset_factory
 
+#-------------------------Search-----------------------------------
+def customerpo_search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        print('searched  ==',searched)
+        customerpo = CustomerPo.objects.filter(customer_po_number=searched)
+        # customerPoItem = CustomerPoItem.objects.filter(customer_po_number= searched)
+        # print("Context_dictionary",customerpo)
+        # print('Custome po items ',customerPoItem)
+        vendorpo = VendorPoForm()
+        context = {
+            'customerpo':customerpo.values,
+            'vendorpo':vendorpo,
+            # 'customerpoitem':customerPoItem
+        }
+        return render(request,'customerpo/searchCustomerPo.html', context=context)
+    else:   
+  
+        return render(request,'customerpo/searchCustomerPo.html', context={})
 
+#-------------------------Dashboard----------------------------------
 def dashboard_show(request):
     return render(request,"dashboard.html")
 
@@ -118,6 +140,7 @@ def get_customer_detail(request):
 
 @login_required
 def customerpo_update(request,id=None):
+    
     obj = get_object_or_404(CustomerPo, id=id)
     print("This is obj",obj)
     form = CustomerPoForm(request.POST or None, instance = obj)
@@ -126,7 +149,7 @@ def customerpo_update(request,id=None):
     # print("this is customerpono", customerpono[0]["customer_name"])
     # customername =customerpono[0]["customer_name"]
     qs = obj.customerpoitem_set.all()
-    print("qs:-",qs)
+    # print("qs:-",qs)
     formset = CustomerPoItemFormset(request.POST or None, queryset=qs)
     print("formset :",formset)
     context ={
@@ -165,9 +188,39 @@ def customerpo_delete(request,id):
     
     
 @login_required
-def customerpoitem_delete(request,id):
+def customerpoitem_delete(request, id):
+    print("This is delete test")
     if request.method == 'POST':
         customerpoitem = CustomerPoItem.objects.get(pk=id)
         customerpoitem.delete()
         return redirect('showcustomerpo')
+    
+
+#--------------------Supplier View------------------------------
+@login_required
+def add_vendor_deatil(request):
+    if request.method == 'POST':
+        form = VendorPoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+        return redirect('showcustomerpo')
+    
+  
+  
+    
+    
+#---------------------dispatch view------------------------------
+@login_required
+def add_dispatch(request):
+    if request.method == 'POST':
+        form = DispatchForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('dispatch')
+    else:
+        form = DispatchForm()
+        print("VALUR of  form", form)
+    return render(request,'dispatch/dispatch.html',{'form':form})
+    
     
