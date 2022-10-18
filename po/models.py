@@ -74,61 +74,63 @@ class CustomerPo(models.Model):
 
 class CustomerPoItem(models.Model):
     UNIT_CHOICES =(
-       ('1' ,'BAG'),
-	   ('2' ,'BAL'),
-	   ('3' ,'BDL'),
-	   ('4' ,'BKL'),
-	   ('5' ,'BOU'),
-	   ('6' ,'BOX'),
-	   ('7' ,'BTL'),
-	   ('8' ,'BUN'),
-	   ('9' ,'CAN'),
- 	   ('10', 'CBM'),
- 	   ('11', 'CCM'),
- 	   ('12', 'CMS'),
- 	   ('13', 'CTN'),
- 	   ('14', 'DOZ'),
- 	   ('15', 'DRM'),
- 	   ('16', 'GGR'),
- 	   ('17', 'GMS'),
- 	   ('18', 'GRS'),
- 	   ('19', 'GYD'),
- 	   ('20', 'KGS'),
- 	   ('21', 'KLR'),
- 	   ('22', 'KME'),
- 	   ('23', 'MLT'),
- 	   ('24', 'MTR'),
-	   ('25', 'MTS'),
- 	   ('26', 'NOS'),
- 	   ('27', 'PAC'),
- 	   ('28', 'PCS'),
- 	   ('29', 'PRS'),
- 	   ('30', 'QTL'),
- 	   ('31', 'ROL'),
- 	   ('32', 'SET'),
- 	   ('33', 'SQF'),
- 	   ('34', 'SQM'),
- 	   ('35', 'SQY'),
- 	   ('36', 'TBS'),
- 	   ('37', 'TGM'),
- 	   ('38', 'THD'),
- 	   ('39', 'TON'),
- 	   ('40', 'TUB'),
- 	   ('41', 'UGS'),
- 	   ('42', 'UNT'),
- 	   ('43', 'YDS'),
- 	   ('44', 'OTH')   
+       ('BAG','BAG'),
+	   ('BAL','BAL'),
+	   ('BDL','BDL'),
+	   ('BKL','BKL'),
+	   ('BOU','BOU'),
+	   ('BOX','BOX'),
+	   ('BTL','BTL'),
+	   ('BUN','BUN'),
+	   ('CAN','CAN'),
+ 	   ('CBM','CBM'),
+ 	   ('CCM','CCM'),
+ 	   ('CMS','CMS'),
+ 	   ('CTN','CTN'),
+ 	   ('DOZ','DOZ'),
+ 	   ('DRM','DRM'),
+ 	   ('GGR','GGR'),
+ 	   ('GMS','GMS'),
+ 	   ('GRS','GRS'),
+ 	   ('GYD','GYD'),
+ 	   ('KGS','KGS'),
+ 	   ('KLR','KLR'),
+ 	   ('KME','KME'),
+ 	   ('MLT','MLT'),
+ 	   ('MTR','MTR'),
+	   ('MTS','MTS'),
+ 	   ('NOS','NOS'),
+ 	   ('PAC','PAC'),
+ 	   ('PCS','PCS'),
+ 	   ('PRS','PRS'),
+ 	   ('QTL','QTL'),
+ 	   ('ROL','ROL'),
+ 	   ('SET','SET'),
+ 	   ('SQF','SQF'),
+ 	   ('SQM','SQM'),
+ 	   ('SQY','SQY'),
+ 	   ('TBS','TBS'),
+ 	   ('TGM','TGM'),
+ 	   ('THD','THD'),
+ 	   ('TON','TON'),
+ 	   ('TUB','TUB'),
+ 	   ('UGS','UGS'),
+ 	   ('UNT','UNT'),
+ 	   ('YDS','YDS'),
+ 	   ('OTH','OTH')   
     )
-    customer_po_number = models.ForeignKey(CustomerPo, on_delete=models.CASCADE, db_column = 'customer_po_number')
+    customer_po_id = models.ForeignKey(CustomerPo, on_delete=models.CASCADE, db_column = 'customer_po_id')
+    customer_po_number = models.CharField(max_length=255)
     customer_item_code = models.CharField(max_length=255)
     customer_item_description = models.TextField()
     quantity = models.PositiveIntegerField()
     unit = models.CharField(max_length=10, choices=UNIT_CHOICES)
     
+    
     def __str__(self) -> str:
         return self.customer_po_number
     class Meta:
-        ordering =['customer_po_number']
+        ordering =['customer_po_id']
         
         
         

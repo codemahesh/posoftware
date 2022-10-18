@@ -100,15 +100,14 @@
                                 <td>
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="checkitem" name="itemselect"
-                                            value={{item.customer_po_number}}></div>
+                                            value={{item.customer_id}}></div>
                                 </td>
                                 <td>{{item.customer_po_number}}</td>
                                 <td>{{item.customer_item_description}}</td>
                                 <td>{{item.quantity}}</td>
                                 <td>{{item.unit}}</td>
+                                <td>{{item.customer_item_code}}</td>
                                 <td><input class="form-control" type="text"></td>
-                                <td><textarea class="form-control" type="text" rows="2"
-                                        cols="5">{{po.address}}</textarea></td>
                                 <td><input class="form-control" type="text"></td>
                                 <td><input class="form-control" type="text"></td>
                             </tr>

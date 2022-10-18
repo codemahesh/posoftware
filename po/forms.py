@@ -59,7 +59,7 @@ class CustomerPoItemForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'customer_po_id':forms.Select(attrs={'class':'form-select'}),
-            #  'customer_po_number':forms.Select(attrs={'class':'form-select'}),
+             'customer_po_number':forms.TextInput(attrs={'class':'form-control'}),
              'customer_item_code': forms.TextInput(attrs={'class':'form-control'}),
              'customer_item_description':forms.Textarea(attrs={'class':'form-control','cols': 10, 'rows': 3,}),
              'quantity':forms.NumberInput(attrs={'class':'form-control'}),

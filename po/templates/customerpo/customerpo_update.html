@@ -13,7 +13,9 @@
                     {% csrf_token %}
                     <div class="col-md-4 form-group mt-2">
                         <label for="id_customer_po_number" class="form-label">Customer Po No.</label>
-                        {{form.customer_po_number}}
+                        
+                        <input type="text" name="customer_po_number" value="{{form.customer_po_number.value}}" class="form-control" autofocus="True" maxlength="255" required="" id="id_customer_po_number" readonly>
+                        <h1>{{form.id}}</h1>
                     </div>
                     <div class="col-md-4  form-group mt-2">
                         <label for="id_date" class="form-label">Po Date</label>
@@ -50,7 +52,11 @@
                         {% endfor %}
                         <div class="row col-sm-12 justify-content-start item-form" >
                           
-                            <div class="col-md-2 form-group mt-4">
+                            <div class="col-md-2 form-group mt-4" style="display:none;">
+                                <label for="id_customer_po_id" class="form-label">Customer PO Number</label>
+                                {{form.customer_po_id}}
+                            </div>
+                            <div class="col-md-2 form-group mt-4" style="display:none;">
                                 <label for="id_customer_po_number" class="form-label">Customer PO Number</label>
                                 {{form.customer_po_number}}
                             </div>
@@ -78,8 +84,12 @@
                     <div style="display: none;">
                         <div id="empty-form">
                             <div style="display: none;" id="cust-name">{{formset.empty_form.customer_item_code}} </div>
-                            <div class="col-md-2 form-group mt-3">
-                                <label for="id_customer_code" class="form-label">Customer Po Num</label>
+                            <div class="col-md-2 form-group mt-3" style="display: none;">
+                                <label for="id_customer_po_id" class="form-label">Customer Po Num</label>
+                                {{formset.empty_form.customer_po_id}}
+                            </div>
+                            <div class="col-md-2 form-group mt-3" style="display: none;">
+                                <label for="id_customer_po_number" class="form-label">Customer Po Num</label>
                                 {{formset.empty_form.customer_po_number}}
                             </div>
                             <div class="col-md-2 form-group mt-3">
@@ -294,13 +304,49 @@
         totalNewForms.setAttribute('value', currentFormCount + 1)
         //add new empty for to our html form
         formCopyTarget.append(copyemptyFormEl)
+        
+        console.log("heloo", `{{form.customer_po_number.value}}`);
+
+        // give customer_name and get id of customer_id
+        id = `{{form.customer_po_number.value}}`
+        const data = {
+            id: id
+        };
+
+        let url = "{% url 'getcustomerpotableid' %}";
+        var custid = ''
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+            }).then((response) => response.json())
+            .then((data) => {
+                console.log('Success:', data);
+                custid = data[0]["id"]
+                console.log("id is",parseInt(custid));
+                document.getElementById(`id_form-${currentFormCount}-customer_po_id`).value= custid
+                document.getElementById(`id_form-${currentFormCount}-customer_po_number`).value = `{{form.customer_po_number.value}}`
+            })
+            .catch((error) => {
+                console.log("hellllllll");
+                console.error('Error:', error);
+            });
+
+            console.log("id is", custid);
+
+       
+
+        
         // put value of cutomerpo no in added form
-        let poNO = '';
-        setTimeout(()=>{
-        poNo = document.getElementById('id_customer_po_number').value ;
-        console.log("poNO",`{{form.id.value}}`);
-        document.getElementById(`id_form-${currentFormCount}-customer_po_number`).value =`{{form.id.value}}`
-        }, 2000);
+        // let poNO = '';
+        // setTimeout(()=>{
+        // poNo = document.getElementById('id_customer_po_number').value ;
+        // console.log("poNO",`{{form.id.value}}`);
+        // document.getElementById(`id_form-${currentFormCount}-customer_po_number`).value =`{{form.id.value}}`
+        // }, 2000);
         // poNo = document.getElementById('id_customer_po_number').value ;
         // console.log("poNO",`{{form.id}}`);
         // document.getElementById(`id_form-${currentFormCount}-customer_po_number`).value =`{{form.id}}`

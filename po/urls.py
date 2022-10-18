@@ -29,6 +29,7 @@ urlpatterns = [
     path('customerpo/delete/<int:id>/',views.customerpo_delete, name='deletecustomerpo'),
     
     path('customerpoitem/delete/<int:id>/',views.customerpoitem_delete, name='deletecustomeritempo'),
+    path('getcustomerpotableid/',views.get_customerpo_table_id, name='getcustomerpotableid'),
     
      #------------------------------Vendor Urls-----------------------------
      path('addvendordetail/', views.add_vendor_deatil, name='addvendordetail'),

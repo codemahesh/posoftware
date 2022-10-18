@@ -16,15 +16,16 @@ def customerpo_search(request):
     if request.method == 'POST':
         searched = request.POST['searched']
         print('searched  ==',searched)
+        
         customerpo = CustomerPo.objects.filter(customer_po_number=searched)
-        # customerPoItem = CustomerPoItem.objects.filter(customer_po_number= searched)
-        # print("Context_dictionary",customerpo)
-        # print('Custome po items ',customerPoItem)
+        customerPoItem = CustomerPoItem.objects.filter(customer_po_number = searched)
+        print("Context_dictionary",customerpo)
+        print('Custome po items ',customerPoItem)
         vendorpo = VendorPoForm()
         context = {
             'customerpo':customerpo.values,
             'vendorpo':vendorpo,
-            # 'customerpoitem':customerPoItem
+            'customerpoitem':customerPoItem
         }
         return render(request,'customerpo/searchCustomerPo.html', context=context)
     else:   
@@ -121,22 +122,18 @@ def get_customer_detail(request):
     print("This is customer id",customer)
     return JsonResponse(list(customer.values('category','address','place')), safe=False)
 
-# @login_required
-# def customerpo_update(request,id): 
-#     customer_po = CustomerPo.objects.get(pk=id)
-#     form = CustomerPoForm(request.POST or None, instance = customer_po)
-#     if form.is_valid():
-#         customerid = Customer.objects.filter(id=request.POST['customer_name'][0])
-#         customer_po.customer_name = customerid.values('customer_name')[0]['customer_name']
-#         customer_po.customer_po_number = form.cleaned_data['customer_po_number']
-#         customer_po.date = form.cleaned_data['date']
-#         customer_po.customer_code = form.cleaned_data['customer_code']
-#         customer_po.category = form.cleaned_data['category']
-#         customer_po.address = form.cleaned_data['address']
-#         customer_po.place = form.cleaned_data['place']
-#         customer_po.save()
-#         return redirect('showcustomerpo') 
-#     return render(request, 'customerpo/customerpo_update.html', {'form': form})
+
+@login_required
+def get_customerpo_table_id(request):
+    print("hello everyone")
+    data =json.loads(request.body)
+    customer_po_number = data['id']
+    print("This is customer_po_id:- ", customer_po_number)
+    customerpo = CustomerPo.objects.filter( customer_po_number=customer_po_number)
+    print("This is customer id  1",customerpo)
+    print('This is real id',customerpo.values('id'))
+    return JsonResponse(list(customerpo.values('id')), safe=False)
+
 
 @login_required
 def customerpo_update(request,id=None):
@@ -144,18 +141,19 @@ def customerpo_update(request,id=None):
     obj = get_object_or_404(CustomerPo, id=id)
     print("This is obj",obj)
     form = CustomerPoForm(request.POST or None, instance = obj)
+    print()
     CustomerPoItemFormset = modelformset_factory(CustomerPoItem, form = CustomerPoItemForm, extra = 0)
     # customerpono = CustomerPo.objects.filter(id=id).values()
     # print("this is customerpono", customerpono[0]["customer_name"])
     # customername =customerpono[0]["customer_name"]
     qs = obj.customerpoitem_set.all()
-    # print("qs:-",qs)
     formset = CustomerPoItemFormset(request.POST or None, queryset=qs)
     print("formset :",formset)
     context ={
         'form':form,
         'formset': formset,
         'object':obj,
+
     }
     if request.method == 'POST':
         if all([form.is_valid(), formset.is_valid()]):
